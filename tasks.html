@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Combined Functionalities</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+            gap: 20px;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        input, button {
+            margin: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+        button {
+            cursor: pointer;
+            border: none;
+        }
+        button:hover {
+            opacity: 0.9;
+        }
+        #calculateBtn {
+            background-color: #28a745;
+            color: white;
+        }
+        #arrayBtn {
+            background-color: #007bff;
+            color: white;
+        }
+        #personBtn1, #personBtn2 {
+            background-color: #17a2b8;
+            color: white;
+        }
+        #result, #sumResult, #personInfo, #newAge {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Calculator -->
+    <div class="container">
+        <h1>Simple Calculator</h1>
+        <input type="number" id="num1" placeholder="Enter first number">
+        <input type="number" id="num2" placeholder="Enter second number">
+        <input type="text" id="operator" placeholder="Enter operator (+, -, *, /)">
+        <button id="calculateBtn" onclick="calculate()">Calculate</button>
+        <p id="result"></p>
+    </div>
+
+    <!-- Array Sum -->
+    <div class="container">
+        <h1>Sum of Even Numbers in an Array</h1>
+        <input type="text" id="arrayInput" placeholder="Enter numbers separated by commas">
+        <button id="arrayBtn" onclick="calculateSum()">Calculate Sum</button>
+        <p id="sumResult"></p>
+    </div>
+
+    <!-- Person Object -->
+    <div class="container">
+        <h1>Person Object Manipulation</h1>
+        <button id="personBtn1" onclick="showPersonInfo()">Show Person Info</button>
+        <p id="personInfo"></p>
+        <button id="personBtn2" onclick="incrementAge()">Increment Age</button>
+        <p id="newAge"></p>
+    </div>
+
+    <script>
+        // Calculator Script
+        function calculate() {
+            const num1 = parseFloat(document.getElementById('num1').value);
+            const num2 = parseFloat(document.getElementById('num2').value);
+            const operator = document.getElementById('operator').value;
+
+            let result = simpleCalculator(num1, num2, operator);
+            document.getElementById('result').textContent = `Result: ${result}`;
+        }
+
+        function simpleCalculator(num1, num2, operator) {
+            let result;
+            switch (operator) {
+                case '+':
+                    result = num1 + num2;
+                    break;
+                case '-':
+                    result = num1 - num2;
+                    break;
+                case '*':
+                    result = num1 * num2;
+                    break;
+                case '/':
+                    if (num2 !== 0) {
+                        result = num1 / num2;
+                    } else {
+                        return 'Error: Division by zero';
+                    }
+                    break;
+                default:
+                    return 'Error: Invalid operator';
+            }
+            return result;
+        }
+
+        // Array Sum Script
+        function calculateSum() {
+            const arrayInput = document.getElementById('arrayInput').value.split(',').map(Number);
+            const sum = sumOfEvenNumbers(arrayInput);
+            document.getElementById('sumResult').textContent = `Sum of even numbers: ${sum}`;
+        }
+
+        function sumOfEvenNumbers(arr) {
+            let sum = 0;
+            for (let i = 0; i < arr.length; i++) {
+                if (arr[i] % 2 === 0) {
+                    sum += arr[i];
+                }
+            }
+            return sum;
+        }
+
+        // Person Object Script
+        let Person = {
+            firstName: 'John',
+            lastName: 'Doe',
+            age: 30,
+            getFullName: function() {
+                return this.firstName + ' ' + this.lastName;
+            },
+            incrementAge: function() {
+                this.age++;
+            }
+        };
+
+        function showPersonInfo() {
+            document.getElementById('personInfo').textContent = `Full Name: ${Person.getFullName()}, Age: ${Person.age}`;
+        }
+
+        function incrementAge() {
+            Person.incrementAge();
+            document.getElementById('newAge').textContent = `New Age: ${Person.age}`;
+        }
+    </script>
+</body>
+</html>
